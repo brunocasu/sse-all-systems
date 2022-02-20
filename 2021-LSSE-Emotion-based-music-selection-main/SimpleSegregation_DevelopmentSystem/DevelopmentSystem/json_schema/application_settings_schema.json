@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "manual_testing": {
+      "type": "boolean"
+    },
+    "manual_testing_started": {
+      "type": "boolean"
+    },
+    "rest_addr": {
+      "type": "string"
+    },
+    "network_server_addr": {
+      "type": "string"
+    },
+    "curve_flat": {
+      "type": "number"
+    },
+    "validation_threshold": {
+      "type": "number"
+    },
+    "test_threshold": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "manual_testing",
+    "manual_testing_started",
+    "rest_addr",
+    "network_server_addr",
+    "curve_flat",
+    "validation_threshold",
+    "test_threshold"
+  ]
+}

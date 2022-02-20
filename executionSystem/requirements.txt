@@ -1,0 +1,11 @@
+matplotlib~=3.2.2
+scikit-learn~=0.23.1
+pytest~=5.4.3
+pylint
+pandas~=1.4.0
+flask~=2.0
+joblib~=1.1.0
+numpy~=1.21.2
+requests~=2.27.1
+pyreadstat
+werkzeug~=2.0.2

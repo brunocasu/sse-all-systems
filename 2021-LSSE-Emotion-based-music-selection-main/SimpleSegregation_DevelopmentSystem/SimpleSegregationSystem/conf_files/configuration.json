@@ -1,0 +1,5 @@
+{
+  "restful_addr": "http://127.0.0.1:5000",
+  "test_split": 0.2,
+  "val_split": 0.25
+}

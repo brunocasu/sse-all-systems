@@ -1,0 +1,91 @@
+{
+	"definitions": {},
+	"$schema": "http://json-schema.org/draft-07/schema#", 
+	"$id": "https://example.com/object1644167630.json", 
+	"title": "Root", 
+	"type": "object",
+	"required": [
+		"params",
+		"validation_error",
+		"training_error"
+	],
+	"properties": {
+		"params": {
+			"$id": "#root/params", 
+			"title": "Params", 
+			"type": "object",
+			"required": [
+				"hidden_layer_sizes",
+				"max_iter"
+			],
+			"properties": {
+				"activation": {
+					"$id": "#root/params/activation", 
+					"title": "Activation", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"relu"
+					],
+					"pattern": "^.*$"
+				},
+				"batch_size": {
+					"$id": "#root/params/batch_size", 
+					"title": "Batch_size", 
+					"type": "integer",
+					"examples": [
+						50
+					],
+					"default": 0
+				},
+				"hidden_layer_sizes": {
+					"$id": "#root/params/hidden_layer_sizes", 
+					"title": "Hidden_layer_sizes", 
+					"type": "integer",
+					"examples": [
+						100
+					],
+					"default": 0
+				},
+				"max_iter": {
+					"$id": "#root/params/max_iter", 
+					"title": "Max_iter", 
+					"type": "integer",
+					"examples": [
+						50
+					],
+					"default": 0
+				}
+			}
+		}
+,
+		"validation_score": {
+			"$id": "#root/validation_error",
+			"title": "Validation_error",
+			"type": "number",
+			"examples": [
+				1
+			],
+			"default": 0
+		},
+		"training_score": {
+			"$id": "#root/training_error",
+			"title": "Training_error",
+			"type": "number",
+			"examples": [
+				1
+			],
+			"default": 0
+		},
+		"testing_score": {
+			"$id": "#root/testing_error",
+			"title": "Testing_error",
+			"type": "number",
+			"examples": [
+				1
+			],
+			"default": 0
+		}
+	}
+}
+

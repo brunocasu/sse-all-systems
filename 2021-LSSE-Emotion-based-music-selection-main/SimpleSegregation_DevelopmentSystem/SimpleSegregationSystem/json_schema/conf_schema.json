@@ -1,0 +1,43 @@
+{
+	"definitions": {},
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://example.com/object1645108752.json",
+	"title": "Root",
+	"type": "object",
+	"required": [
+		"restful_addr",
+		"test_split",
+		"val_split"
+	],
+	"properties": {
+		"restful_addr": {
+			"$id": "#root/restful_addr",
+			"title": "Restful_addr",
+			"type": "string",
+			"default": "",
+			"examples": [
+				"http://127.0.0.1:5000"
+			],
+			"pattern": "^.*$"
+		},
+		"test_split": {
+			"$id": "#root/test_split",
+			"title": "Test_split",
+			"type": "number",
+			"examples": [
+				0.2
+			],
+			"default": 0.0
+		},
+		"val_split": {
+			"$id": "#root/val_split",
+			"title": "Val_split",
+			"type": "number",
+			"examples": [
+				0.25
+			],
+			"default": 0.0
+		}
+	}
+}
+

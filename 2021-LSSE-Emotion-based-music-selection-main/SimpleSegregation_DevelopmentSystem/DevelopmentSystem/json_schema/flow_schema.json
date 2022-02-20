@@ -1,0 +1,89 @@
+{
+	"definitions": {},
+	"$schema": "http://json-schema.org/draft-07/schema#", 
+	"$id": "https://example.com/object1644428734.json",
+	"title": "Root",
+	"type": "object",
+	"required": [
+		"start",
+		"training",
+		"success_training",
+		"chosen_network_index",
+		"testing",
+		"retraining",
+		"accept_final_report_step",
+		"accept_network"
+	],
+	"properties": {
+		"start": {
+			"$id": "#root/start",
+			"title": "Start",
+			"type": "boolean",
+			"examples": [
+				false
+			],
+			"default": true
+		},
+		"training": {
+			"$id": "#root/training",
+			"title": "Training",
+			"type": "boolean",
+			"examples": [
+				false
+			],
+			"default": true
+		},
+		"success_training": {
+			"$id": "#root/success_training",
+			"title": "Success_training",
+			"type": "boolean",
+			"examples": [
+				false
+			],
+			"default": true
+		},
+		"chosen_network_index": {
+			"$id": "#root/chosen_network_index",
+			"title": "Chosen_network_index",
+			"type": ["null", "integer"],
+			"default": null
+		},
+		"testing": {
+			"$id": "#root/testing",
+			"title": "Testing",
+			"type": "boolean",
+			"examples": [
+				false
+			],
+			"default": true
+		},
+		"retraining": {
+			"$id": "#root/retraining",
+			"title": "Retraining",
+			"type": "boolean",
+			"examples": [
+				false
+			],
+			"default": true
+		},
+		"accept_final_report_step": {
+			"$id": "#root/accept_final_report_step", 
+			"title": "Accept_final_report_step", 
+			"type": "boolean",
+			"examples": [
+				false
+			],
+			"default": true
+		},
+		"accept_network": {
+			"$id": "#root/accept_network", 
+			"title": "Accept_network", 
+			"type": "boolean",
+			"examples": [
+				false
+			],
+			"default": true
+		}
+	}
+}
+

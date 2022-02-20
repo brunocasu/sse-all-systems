@@ -1,0 +1,18 @@
+{
+	"definitions": {},
+	"$schema": "http://json-schema.org/draft-07/schema#", 
+	"$id": "https://example.com/object1644168889.json",
+	"title": "Root", 
+	"type": "object",
+	"required": [
+        	"SYSTEM_STATE",
+		"MIN_outlier_value",
+		"MAX_outlier_value",
+   	],
+
+	"properties": {
+        	"SYSTEM_STATE": {"type": "string"},
+        	"MIN_outlier_value": {"type": "number"},
+        	"MAX_outlier_value": {"type": "number"},
+    	}
+}

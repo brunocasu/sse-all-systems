@@ -1,0 +1,361 @@
+{
+	"definitions": {},
+	"$schema": "http://json-schema.org/draft-07/schema#", 
+	"$id": "https://example.com/object1644168889.json",
+	"title": "Root", 
+	"type": "object",
+	"required": [
+		"max_iter"
+	],
+	"properties": {
+		"activation": {
+			"$id": "#root/activation", 
+			"title": "Activation", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/activation/items", 
+				"title": "Items", 
+				"type": "string",
+				"default": "",
+				"examples": [
+					"relu"
+				],
+				"pattern": "^.*$"
+			}
+		},
+		"hidden_layer_sizes": {
+			"$id": "#root/hidden_layer_sizes", 
+			"title": "Hidden_layer_sizes", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/hidden_layer_sizes/items", 
+				"title": "Items", 
+				"type": "integer",
+				"examples": [
+					20
+				],
+				"default": 0
+			}
+		},
+		"batch_size": {
+			"$id": "#root/batch_size", 
+			"title": "Batch_size", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/batch_size/items", 
+				"title": "Items", 
+				"type": "integer",
+				"examples": [
+					10
+				],
+				"default": 0
+			}
+		},
+		"max_iter": {
+			"$id": "#root/max_iter", 
+			"title": "Max_iter", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/max_iter/items", 
+				"title": "Items", 
+				"type": "integer",
+				"examples": [
+					50
+				],
+				"default": 0
+			}
+		},
+		"alpha": {
+			"$id": "#root/alpha", 
+			"title": "Alpha", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/alpha/items", 
+				"title": "Items", 
+				"type": "number",
+				"examples": [
+					0.0001
+				],
+				"default": 0.0
+			}
+		},
+		"beta_1": {
+			"$id": "#root/beta_1", 
+			"title": "Beta_1", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/beta_1/items", 
+				"title": "Items", 
+				"type": "number",
+				"examples": [
+					0.9
+				],
+				"default": 0.0
+			}
+		},
+		"beta_2": {
+			"$id": "#root/beta_2", 
+			"title": "Beta_2", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/beta_2/items", 
+				"title": "Items", 
+				"type": "number",
+				"examples": [
+					0.999
+				],
+				"default": 0.0
+			}
+		},
+		"early_stopping": {
+			"$id": "#root/early_stopping", 
+			"title": "Early_stopping", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/early_stopping/items", 
+				"title": "Items", 
+				"type": "boolean",
+				"examples": [
+					false
+				],
+				"default": true
+			}
+		},
+		"epsilon": {
+			"$id": "#root/epsilon", 
+			"title": "Epsilon", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/epsilon/items", 
+				"title": "Items", 
+				"type": "number",
+				"examples": [
+					1e-8
+				],
+				"default": 0.0
+			}
+		},
+		"learning_rate": {
+			"$id": "#root/learning_rate", 
+			"title": "Learning_rate", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/learning_rate/items", 
+				"title": "Items", 
+				"type": "string",
+				"default": "",
+				"examples": [
+					"constant"
+				],
+				"pattern": "^.*$"
+			}
+		},
+		"learning_rate_init": {
+			"$id": "#root/learning_rate_init", 
+			"title": "Learning_rate_init", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/learning_rate_init/items", 
+				"title": "Items", 
+				"type": "number",
+				"examples": [
+					0.001
+				],
+				"default": 0.0
+			}
+		},
+		"max_fun": {
+			"$id": "#root/max_fun", 
+			"title": "Max_fun", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/max_fun/items", 
+				"title": "Items", 
+				"type": "integer",
+				"examples": [
+					15000
+				],
+				"default": 0
+			}
+		},
+		"momentum": {
+			"$id": "#root/momentum", 
+			"title": "Momentum", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/momentum/items", 
+				"title": "Items", 
+				"type": "number",
+				"examples": [
+					0.9
+				],
+				"default": 0.0
+			}
+		},
+		"n_iter_no_change": {
+			"$id": "#root/n_iter_no_change", 
+			"title": "N_iter_no_change", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/n_iter_no_change/items", 
+				"title": "Items", 
+				"type": "integer",
+				"examples": [
+					10
+				],
+				"default": 0
+			}
+		},
+		"nesterovs_momentum": {
+			"$id": "#root/nesterovs_momentum", 
+			"title": "Nesterovs_momentum", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/nesterovs_momentum/items", 
+				"title": "Items", 
+				"type": "boolean",
+				"examples": [
+					true
+				],
+				"default": true
+			}
+		},
+		"power_t": {
+			"$id": "#root/power_t", 
+			"title": "Power_t", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/power_t/items", 
+				"title": "Items", 
+				"type": "number",
+				"examples": [
+					0.5
+				],
+				"default": 0.0
+			}
+		},
+		"random_state": {
+			"$id": "#root/random_state", 
+			"title": "Random_state", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/random_state/items", 
+				"title": "Items", 
+				"type": ["integer", "null"],
+				"examples": [
+					0
+				],
+				"default": 0
+			}
+		},
+		"shuffle": {
+			"$id": "#root/shuffle", 
+			"title": "Shuffle", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/shuffle/items", 
+				"title": "Items", 
+				"type": "boolean",
+				"examples": [
+					true
+				],
+				"default": true
+			}
+		},
+		"solver": {
+			"$id": "#root/solver", 
+			"title": "Solver", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/solver/items", 
+				"title": "Items", 
+				"type": "string",
+				"default": "",
+				"examples": [
+					"adam"
+				],
+				"pattern": "^.*$"
+			}
+		},
+		"tol": {
+			"$id": "#root/tol", 
+			"title": "Tol", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/tol/items", 
+				"title": "Items", 
+				"type": "number",
+				"examples": [
+					0.0001
+				],
+				"default": 0.0
+			}
+		},
+		"validation_fraction": {
+			"$id": "#root/validation_fraction", 
+			"title": "Validation_fraction", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/validation_fraction/items", 
+				"title": "Items", 
+				"type": "number",
+				"examples": [
+					0.1
+				],
+				"default": 0.0
+			}
+		},
+		"verbose": {
+			"$id": "#root/verbose", 
+			"title": "Verbose", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/verbose/items", 
+				"title": "Items", 
+				"type": "boolean",
+				"examples": [
+					false
+				],
+				"default": true
+			}
+		},
+		"warm_start": {
+			"$id": "#root/warm_start", 
+			"title": "Warm_start", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/warm_start/items", 
+				"title": "Items", 
+				"type": "boolean",
+				"examples": [
+					false
+				],
+				"default": true
+			}
+		}
+	}
+}
+
