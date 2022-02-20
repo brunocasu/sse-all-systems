@@ -17,9 +17,9 @@ DEPLOYED_NETWORK = "final_network.sav"
 #BEST_NETWORKS_PATH = BASE_DIR + "/json_report_files/validation_report.json"
 #BEST_NETWORKS_TABLE = BASE_DIR + "/json_report_files/best_networks_params.txt"
 #TEST_REPORT_PATH = BASE_DIR + "/json_report_files/test_report.json"
-BEST_NETWORKS_PATH = BASE_DIR + "validation_report.json"
-BEST_NETWORKS_TABLE = BASE_DIR + "best_networks_params.txt"
-TEST_REPORT_PATH = BASE_DIR + "test_report.json"
+BEST_NETWORKS_PATH = BASE_DIR + "/validation_report.json"
+BEST_NETWORKS_TABLE = BASE_DIR + "/best_networks_params.txt"
+TEST_REPORT_PATH = BASE_DIR + "/test_report.json"
 
 
 class DevelopmentTesting:
@@ -276,8 +276,10 @@ class DevelopmentTesting:
             while training:
                 classifier.training_classifier()
                 pass_training = random.uniform(0, 1)
-                if pass_training < app_json_object["curve_flat"]:
-                    new_epochs = randint(0, 1000)
+                #if pass_training < app_json_object["curve_flat"]:
+                if pass_training < 0.5:
+                    old_epochs = int(classifier.get_epochs())
+                    new_epochs = randint(old_epochs, 1000)
                     print("[DEVELOPMENT SYSTEM]: Training not passed. New number of epochs generated: " + str(
                         new_epochs) + ". Training is restarting")
                     # Set generations
@@ -302,7 +304,8 @@ class DevelopmentTesting:
                     if classifier.check_presence(i):
                         # get the validation error
                         val_error = classifier.get_validation_error(i)
-                        if float(val_error) < app_json_object["validation_threshold"]:
+                        #if float(val_error) < app_json_object["validation_threshold"]:
+                        if float(val_error) < 0.9: #### ADDED ####
                             present.append(i)
                 if len(present) == 0:
                     print("[DEVELOPMENT SYSTEM]: No network is enough accurate. Validation not passed. Restart "

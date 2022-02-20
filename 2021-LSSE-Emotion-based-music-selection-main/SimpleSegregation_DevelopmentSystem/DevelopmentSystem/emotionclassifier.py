@@ -58,6 +58,7 @@ class DevelopEmotionClassifier:
         self.first_model = self.base_dir + FIRST_MODEL
         self.best_network = self.base_dir + BEST_NETWORK
         self.validate = JsonSchemaValidation(self.base_dir, "development")
+        self.classifier_filename_to_deploy = None
 
     def set_data(self, training_set, training_set_labels, validation_set, validation_set_labels, test_set,
                  test_set_labels):
@@ -80,6 +81,14 @@ class DevelopEmotionClassifier:
             json_object = {"max_iter": [epochs]}
             write_json(self.model_configuration_path, json_object)
             self.params = read_json(self.model_configuration_path)
+
+    def get_epochs(self):
+        if os.path.exists(self.model_configuration_path):
+            json_object = read_json(self.model_configuration_path)
+            return json_object["max_iter"][0]
+        else:
+            print("[DEVELOPMENT SYSTEM]: No hyperparameter setting. Error!")
+            sys.exit()
 
     def training_classifier(self):
 
@@ -233,7 +242,9 @@ class DevelopEmotionClassifier:
 
             # rename the file to easily find it later
             if os.path.exists(self.best_network + str(accept) + ".sav"):
-                os.rename(self.best_network + str(accept) + ".sav", self.best_network + ".sav")
+                print("removed renaming - best network")
+                self.classifier_filename_to_deploy = self.best_network + str(accept) + ".sav"
+                #os.rename(self.best_network + str(accept) + ".sav", self.best_network + ".sav")
             else:
                 print("[DEVELOPMENT SYSTEM]: Error, file " + self.best_network + str(accept) + ".sav does not exists")
                 exit(0)
@@ -269,7 +280,7 @@ class DevelopEmotionClassifier:
     def testing_classifier(self):
 
         # load the network
-        classifier = joblib.load(self.best_network + ".sav")
+        classifier = joblib.load(self.classifier_filename_to_deploy)
         labels = classifier.predict(self.test_set)
         test_error = 1 - accuracy_score(ravel(self.test_set_labels), labels)
         print("[DEVELOPMENT SYSTEM]: Testing Error: " + str(test_error))
@@ -292,7 +303,8 @@ class DevelopEmotionClassifier:
     def deploy_classifier(self):
         # I CHECK THE EXISTENCE OF THE NET AND RENAME IT
         if os.path.exists(self.best_network + ".sav"):
-            os.rename(self.best_network + ".sav", self.deployed_path)
+            print("removed file renaming")
+            #os.rename(self.best_network + ".sav", self.deployed_path)
         else:
             print("[DEVELOPMENT SYSTEM]: Error during deployment\n")
             # exit(0)
@@ -304,11 +316,13 @@ class DevelopEmotionClassifier:
         API_URL = str(app_json_object["network_server_addr"]) + "/deploy/"
         #### ADDED ####
         EXECUTION_DEPLOY_URL = 'http://127.0.0.1:5005/execution/deploy'
-        files = {'file': open(self.deployed_path, 'rb')}
+        #files = {'file': open(self.deployed_path, 'rb')}
+        files = {'file': open(self.classifier_filename_to_deploy, 'rb')}
         try:
             rr = requests.post(EXECUTION_DEPLOY_URL, files=files)
             if rr.status_code == 200:
                 print("[DEVELOPMENT SYSTEM]: Network successfully deployed.")
+                #os.remove(self.classifier_filename_to_deploy)
 
         except requests.exceptions.RequestException as e:
             print(e)

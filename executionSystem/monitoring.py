@@ -25,8 +25,9 @@ class MonitoringSystem:
     def get_human_label(self, json_label):
         data = json_label
         uuid = data['uuid']
-        print("CLASSIFIER UUID RECEIVED\n", uuid)
+        print("HUMAN LABEL UUID RECEIVED\n", uuid)
         label = np.array(data['label'])
+        print(label)
         if self.h_label_ctr < len(self.human_label):
             self.human_label[self.h_label_ctr] = label.tolist()
             #print('copy human label')
@@ -38,9 +39,10 @@ class MonitoringSystem:
     def get_classifier_label(self, json_label):
         data = json_label
         uuid = data['uuid']
-        print("CLASSIFIER UUID RECEIVED\n", uuid)
+        print("CLASSIFIER LABEL RECEIVED\n", uuid)
         print(type(uuid))
         label = np.array(data['label'])
+        print(label)
         if self.c_label_ctr < len(self.classifier_label):
             self.classifier_label[self.c_label_ctr] = label.tolist()
             #print('copy classifier label')
