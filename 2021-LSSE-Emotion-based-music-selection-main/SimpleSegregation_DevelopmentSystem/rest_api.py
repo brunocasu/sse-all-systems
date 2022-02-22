@@ -70,11 +70,9 @@ class Restful_api(Resource):
 
             # RUN DEVELOPMENT SYSTEM
             testing = DevelopmentTesting()
-
             if app_json_object["manual_testing"]:
                 # MANUAL TESTING
                 testing.manual_testing()
-
             else:
                 # AUTOMATIC TESTING -> NO USER INVOLVED, JUST INITIAL FILE CONFIGURATION
                 result = testing.automatic_testing()

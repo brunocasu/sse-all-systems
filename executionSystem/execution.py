@@ -9,9 +9,21 @@ EXECUTION_DEPLOY_URL = 'http://127.0.0.1:5005/execution/deploy'
 EXECUTION_URL = 'http://127.0.0.1:5005/execution/session'
 MONITORING_URL = 'http://127.0.0.1:5006/classifier/label'
 DEVELOPMENT_CLASSIFIER_NET_URL = 'http://127.0.0.1:5001/deploy'
+END_OF_DEVEL_TEST_URL = 'http://127.0.0.1:5009/testend'
 
-MONITORING_REPETITION = 50
+MONITORING_REPETITION = 10
 MONITORING_INTERVAL = 0
+
+class DataframeEncoding:
+    def encode(self, dataframe):
+        encoder = {
+            "1": {"sport": 0, "meditation": 1},
+            "2": {"pop-music": 0, "ambient-music": 1},
+            "3": {"focused": 0, "relaxed": 1, "excited": 2, "stressed": 3}
+        }
+        dataframe = dataframe.replace(encoder)
+        return dataframe
+
 
 class ExecutionSystem:
     def __init__(self, counter_val, monitoring_int, initial_mode):
@@ -55,31 +67,56 @@ class ExecutionSystem:
             self.no_monitoring_repetition = 1
         return 1
 
+    def load_classifier(self, filename):  # FOR TESTING ONLY
+        self.classifier = joblib.load(filename)
+        self.monitoring_counter = self.init_counter_value
+        self.monitoring_interval = self.init_monitoring_interval
+        if self.init_monitoring_interval == 0:  # monitoring is only executed once
+            self.no_monitoring_repetition = 1
+
     def get_session(self, session_json):
         self.df = pd.read_json(session_json)
-        self.uuid = self.df[0:1, 0:1]
-        self.df.drop(columns=self.df.columns[0], axis=1, inplace=True)  # remove UUID from the session
+        print("\n\nSession from preparation")
+        print(self.df)
+        self.uuid = self.df.iloc[0:1, 0:1]
+        self.df.drop(columns=self.df.columns[0], axis=1, inplace=True)  # I drop the UUID because useless
 
-        labels = self.df.iloc[:, 3]  # Take label
-        data1 = self.df.iloc[:, 0:3]  # Take the inputs (calendar, music, emotion)
-        dataframe_encoded = DataframeEncoding(columns=['1', '2', '3']).fit_transform(data1)  # Encode the input
-        data2 = self.df.iloc[:, 4:8]  # Take the features
+        # Take the inputs to be encoded (calendar, music, emotion)
+        data_to_encode = self.df.iloc[:, 0:3]
+
+        encoded_df = data_to_encode.replace("sport", 0)
+        encoded_df = encoded_df.replace("meditation", 1)
+        encoded_df = encoded_df.replace("pop-music", 0)
+        encoded_df = encoded_df.replace("ambient-music", 1)
+        encoded_df = encoded_df.replace("focused", 0)
+        encoded_df = encoded_df.replace("relaxed", 1)
+        encoded_df = encoded_df.replace("excited", 2)
+        encoded_df = encoded_df.replace("stressed", 3)
+        # Remove the encoded labels from the encoded dataframe (leave only calendar and music)
+        dataframe_encoded = encoded_df.iloc[:, :-1]
+
+        # Add the EEG features
+        data2 = self.df.iloc[:, 4:8]
+
         # Merge everything, labels at the end.
         self.encoded_session = dataframe_encoded.join(data2)
-        #data = data.join(labels)  # don't add labels to the session
+        print("Encoded session")
+        print(self.encoded_session)
+        #data = data.join(labels) ### do not add label
 
     def send_label_monitoring(self, url):
-        data = {'label': self.classification_result.tolist(), 'uuid': self.uuid}
+        uuid_value = self.uuid.loc[0:1,0:1].values[0]  # ndarray
+        data = {'label': self.classification_result.tolist(), 'uuid': uuid_value.tolist()}
         r = requests.post(url, json=data)  # send label to monitoring system
         #print(r.text)
 
     def classify_session(self, url):
         self.classification_result = self.classifier.predict(self.encoded_session)
         if self.monitoring_counter >= 0:  # monitoring period
-            print('classifier label n:', self.monitoring_counter)
+            print('Remaining Sessions for Monitoring:', self.monitoring_counter)
             print(self.classification_result)
             self.monitoring_counter -= 1
-            #self.send_label_monitoring(url)
+            self.send_label_monitoring(url)
         # if no monitoring flag is zero, the system counts an amount of received sessions to then reset the monitoring
         elif self.no_monitoring_repetition == 0:
             self.monitoring_interval -= 1
@@ -87,31 +124,6 @@ class ExecutionSystem:
                 self.monitoring_counter = self.init_counter_value
                 self.monitoring_interval = self.init_monitoring_interval
 
-
-class DataframeEncoding:
-    def __init__(self, columns=None):
-        self.columns = columns  # array of column names to encode
-
-    def fit(self, X, y=None):
-        return self  # not relevant here
-
-    def transform(self, X):
-        """
-        Transforms columns of X specified in self.columns using
-        LabelEncoder(). If no columns specified, transforms all
-        columns in X.
-        """
-        output = X.copy()
-        if self.columns is not None:
-            for col in self.columns:
-                output[col] = LabelEncoder().fit_transform(output[col])
-        else:
-            for colname, col in output.iteritems():
-                output[colname] = LabelEncoder().fit_transform(col)
-        return output
-
-    def fit_transform(self, X, y=None):
-        return self.fit(X, y).transform(X)
 
 
 es = ExecutionSystem(MONITORING_REPETITION, MONITORING_INTERVAL, 0)
@@ -126,6 +138,7 @@ def deploy_classifier():
         r = es.deploy_classifier(request)
         if r != 0:
             print("CLASSIFIER DEPLOYED")
+            requests.post(END_OF_DEVEL_TEST_URL)
             return Response("<h1>CLASSIFIER DEPLOYED</h1>", status=200, mimetype='text/html')
     else:
         return Response("<h1>EXECUTION SYSTEM ALIVE</h1>", status=200, mimetype='text/html')
@@ -139,5 +152,5 @@ def exe_classifier():
     else:
         return Response("<h1>EXECUTION SYSTEM ALIVE</h1>",status=200, mimetype='text/html')
 
-
+es.load_classifier('deployedClassifier.sav') ## ONLY FOR MONITORING TEST
 app.run(port=5005)

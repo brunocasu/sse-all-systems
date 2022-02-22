@@ -200,17 +200,29 @@
 							"default": 0.0
 						},
 						"hidden_layer_sizes": {
-							"$id": "#root/params/0/hidden_layer_sizes", 
-							"title": "Hidden_layer_sizes", 
-							"type": "integer",
-							"examples": [
-								100
-							],
-							"default": 0
+							"$id": "#root/hidden_layer_sizes",
+							"title": "Hidden_layer_sizes",
+							"type": "array",
+							"default": [],
+							"items":{
+								"$id": "#root/hidden_layer_sizes/items",
+								"title": "Items",
+								"type": ["array", "integer"],
+								"default": [],
+								"items":{
+									"$id": "#root/hidden_layer_sizes/items/items",
+									"title": "Items",
+									"type": "integer",
+									"examples": [
+										10
+									],
+									"default": 0
+								}
+							}
 						},
 						"learning_rate": {
-							"$id": "#root/params/0/learning_rate", 
-							"title": "Learning_rate", 
+							"$id": "#root/params/0/learning_rate",
+							"title": "Learning_rate",
 							"type": "string",
 							"default": "",
 							"examples": [
@@ -219,8 +231,8 @@
 							"pattern": "^.*$"
 						},
 						"learning_rate_init": {
-							"$id": "#root/params/0/learning_rate_init", 
-							"title": "Learning_rate_init", 
+							"$id": "#root/params/0/learning_rate_init",
+							"title": "Learning_rate_init",
 							"type": "number",
 							"examples": [
 								0.001
@@ -228,8 +240,8 @@
 							"default": 0.0
 						},
 						"max_fun": {
-							"$id": "#root/params/0/max_fun", 
-							"title": "Max_fun", 
+							"$id": "#root/params/0/max_fun",
+							"title": "Max_fun",
 							"type": "integer",
 							"examples": [
 								15000
@@ -237,8 +249,8 @@
 							"default": 0
 						},
 						"max_iter": {
-							"$id": "#root/params/0/max_iter", 
-							"title": "Max_iter", 
+							"$id": "#root/params/0/max_iter",
+							"title": "Max_iter",
 							"type": "integer",
 							"examples": [
 								50
@@ -246,8 +258,8 @@
 							"default": 0
 						},
 						"momentum": {
-							"$id": "#root/params/0/momentum", 
-							"title": "Momentum", 
+							"$id": "#root/params/0/momentum",
+							"title": "Momentum",
 							"type": "number",
 							"examples": [
 								0.9
@@ -255,8 +267,8 @@
 							"default": 0.0
 						},
 						"n_iter_no_change": {
-							"$id": "#root/params/0/n_iter_no_change", 
-							"title": "N_iter_no_change", 
+							"$id": "#root/params/0/n_iter_no_change",
+							"title": "N_iter_no_change",
 							"type": "integer",
 							"examples": [
 								10
@@ -264,8 +276,8 @@
 							"default": 0
 						},
 						"nesterovs_momentum": {
-							"$id": "#root/params/0/nesterovs_momentum", 
-							"title": "Nesterovs_momentum", 
+							"$id": "#root/params/0/nesterovs_momentum",
+							"title": "Nesterovs_momentum",
 							"type": "boolean",
 							"examples": [
 								true
@@ -273,8 +285,8 @@
 							"default": true
 						},
 						"power_t": {
-							"$id": "#root/params/0/power_t", 
-							"title": "Power_t", 
+							"$id": "#root/params/0/power_t",
+							"title": "Power_t",
 							"type": "number",
 							"examples": [
 								0.5
@@ -282,8 +294,8 @@
 							"default": 0.0
 						},
 						"random_state": {
-							"$id": "#root/params/0/random_state", 
-							"title": "Random_state", 
+							"$id": "#root/params/0/random_state",
+							"title": "Random_state",
 							"type": ["integer", "null"],
 							"examples": [
 								0
@@ -291,8 +303,8 @@
 							"default": 0
 						},
 						"shuffle": {
-							"$id": "#root/params/0/shuffle", 
-							"title": "Shuffle", 
+							"$id": "#root/params/0/shuffle",
+							"title": "Shuffle",
 							"type": "boolean",
 							"examples": [
 								true
@@ -300,8 +312,8 @@
 							"default": true
 						},
 						"solver": {
-							"$id": "#root/params/0/solver", 
-							"title": "Solver", 
+							"$id": "#root/params/0/solver",
+							"title": "Solver",
 							"type": "string",
 							"default": "",
 							"examples": [
@@ -310,8 +322,8 @@
 							"pattern": "^.*$"
 						},
 						"tol": {
-							"$id": "#root/params/0/tol", 
-							"title": "Tol", 
+							"$id": "#root/params/0/tol",
+							"title": "Tol",
 							"type": "number",
 							"examples": [
 								0.0001
@@ -319,8 +331,8 @@
 							"default": 0.0
 						},
 						"validation_fraction": {
-							"$id": "#root/params/0/validation_fraction", 
-							"title": "Validation_fraction", 
+							"$id": "#root/params/0/validation_fraction",
+							"title": "Validation_fraction",
 							"type": "number",
 							"examples": [
 								0.1
@@ -328,8 +340,8 @@
 							"default": 0.0
 						},
 						"verbose": {
-							"$id": "#root/params/0/verbose", 
-							"title": "Verbose", 
+							"$id": "#root/params/0/verbose",
+							"title": "Verbose",
 							"type": "boolean",
 							"examples": [
 								false
@@ -337,8 +349,8 @@
 							"default": true
 						},
 						"warm_start": {
-							"$id": "#root/params/0/warm_start", 
-							"title": "Warm_start", 
+							"$id": "#root/params/0/warm_start",
+							"title": "Warm_start",
 							"type": "boolean",
 							"examples": [
 								false
@@ -349,16 +361,16 @@
 				}
 ,
 				"1": {
-					"$id": "#root/params/1", 
-					"title": "1", 
+					"$id": "#root/params/1",
+					"title": "1",
 					"type": "object",
 					"required": [
-						
+
 					],
 					"properties": {
 						"activation": {
-							"$id": "#root/params/1/activation", 
-							"title": "Activation", 
+							"$id": "#root/params/1/activation",
+							"title": "Activation",
 							"type": "string",
 							"default": "",
 							"examples": [
@@ -367,8 +379,8 @@
 							"pattern": "^.*$"
 						},
 						"alpha": {
-							"$id": "#root/params/1/alpha", 
-							"title": "Alpha", 
+							"$id": "#root/params/1/alpha",
+							"title": "Alpha",
 							"type": "number",
 							"examples": [
 								0.0001
@@ -376,8 +388,8 @@
 							"default": 0.0
 						},
 						"batch_size": {
-							"$id": "#root/params/1/batch_size", 
-							"title": "Batch_size", 
+							"$id": "#root/params/1/batch_size",
+							"title": "Batch_size",
 							"type": "integer",
 							"examples": [
 								50
@@ -385,8 +397,8 @@
 							"default": 0
 						},
 						"beta_1": {
-							"$id": "#root/params/1/beta_1", 
-							"title": "Beta_1", 
+							"$id": "#root/params/1/beta_1",
+							"title": "Beta_1",
 							"type": "number",
 							"examples": [
 								0.9
@@ -394,8 +406,8 @@
 							"default": 0.0
 						},
 						"beta_2": {
-							"$id": "#root/params/1/beta_2", 
-							"title": "Beta_2", 
+							"$id": "#root/params/1/beta_2",
+							"title": "Beta_2",
 							"type": "number",
 							"examples": [
 								0.999
@@ -403,8 +415,8 @@
 							"default": 0.0
 						},
 						"early_stopping": {
-							"$id": "#root/params/1/early_stopping", 
-							"title": "Early_stopping", 
+							"$id": "#root/params/1/early_stopping",
+							"title": "Early_stopping",
 							"type": "boolean",
 							"examples": [
 								false
@@ -412,26 +424,37 @@
 							"default": true
 						},
 						"epsilon": {
-							"$id": "#root/params/1/epsilon", 
-							"title": "Epsilon", 
+							"$id": "#root/params/1/epsilon",
+							"title": "Epsilon",
 							"type": "number",
 							"examples": [
 								1e-8
 							],
 							"default": 0.0
 						},
-						"hidden_layer_sizes": {
-							"$id": "#root/params/1/hidden_layer_sizes", 
-							"title": "Hidden_layer_sizes", 
-							"type": "integer",
-							"examples": [
-								20
-							],
-							"default": 0
+						"hidden_layer_sizes": {"$id": "#root/hidden_layer_sizes",
+							"title": "Hidden_layer_sizes",
+							"type": "array",
+							"default": [],
+							"items":{
+								"$id": "#root/hidden_layer_sizes/items",
+								"title": "Items",
+								"type": ["array", "integer"],
+								"default": [],
+								"items":{
+									"$id": "#root/hidden_layer_sizes/items/items",
+									"title": "Items",
+									"type": "integer",
+									"examples": [
+										10
+									],
+									"default": 0
+								}
+							}
 						},
 						"learning_rate": {
-							"$id": "#root/params/1/learning_rate", 
-							"title": "Learning_rate", 
+							"$id": "#root/params/1/learning_rate",
+							"title": "Learning_rate",
 							"type": "string",
 							"default": "",
 							"examples": [
@@ -440,8 +463,8 @@
 							"pattern": "^.*$"
 						},
 						"learning_rate_init": {
-							"$id": "#root/params/1/learning_rate_init", 
-							"title": "Learning_rate_init", 
+							"$id": "#root/params/1/learning_rate_init",
+							"title": "Learning_rate_init",
 							"type": "number",
 							"examples": [
 								0.001
@@ -449,8 +472,8 @@
 							"default": 0.0
 						},
 						"max_fun": {
-							"$id": "#root/params/1/max_fun", 
-							"title": "Max_fun", 
+							"$id": "#root/params/1/max_fun",
+							"title": "Max_fun",
 							"type": "integer",
 							"examples": [
 								15000
@@ -458,8 +481,8 @@
 							"default": 0
 						},
 						"max_iter": {
-							"$id": "#root/params/1/max_iter", 
-							"title": "Max_iter", 
+							"$id": "#root/params/1/max_iter",
+							"title": "Max_iter",
 							"type": "integer",
 							"examples": [
 								50
@@ -467,8 +490,8 @@
 							"default": 0
 						},
 						"momentum": {
-							"$id": "#root/params/1/momentum", 
-							"title": "Momentum", 
+							"$id": "#root/params/1/momentum",
+							"title": "Momentum",
 							"type": "number",
 							"examples": [
 								0.9
@@ -476,8 +499,8 @@
 							"default": 0.0
 						},
 						"n_iter_no_change": {
-							"$id": "#root/params/1/n_iter_no_change", 
-							"title": "N_iter_no_change", 
+							"$id": "#root/params/1/n_iter_no_change",
+							"title": "N_iter_no_change",
 							"type": "integer",
 							"examples": [
 								10
@@ -485,8 +508,8 @@
 							"default": 0
 						},
 						"nesterovs_momentum": {
-							"$id": "#root/params/1/nesterovs_momentum", 
-							"title": "Nesterovs_momentum", 
+							"$id": "#root/params/1/nesterovs_momentum",
+							"title": "Nesterovs_momentum",
 							"type": "boolean",
 							"examples": [
 								true
@@ -494,8 +517,8 @@
 							"default": true
 						},
 						"power_t": {
-							"$id": "#root/params/1/power_t", 
-							"title": "Power_t", 
+							"$id": "#root/params/1/power_t",
+							"title": "Power_t",
 							"type": "number",
 							"examples": [
 								0.5
@@ -503,8 +526,8 @@
 							"default": 0.0
 						},
 						"random_state": {
-							"$id": "#root/params/1/random_state", 
-							"title": "Random_state", 
+							"$id": "#root/params/1/random_state",
+							"title": "Random_state",
 							"type": ["integer", "null"],
 							"examples": [
 								0
@@ -512,8 +535,8 @@
 							"default": 0
 						},
 						"shuffle": {
-							"$id": "#root/params/1/shuffle", 
-							"title": "Shuffle", 
+							"$id": "#root/params/1/shuffle",
+							"title": "Shuffle",
 							"type": "boolean",
 							"examples": [
 								true
@@ -521,8 +544,8 @@
 							"default": true
 						},
 						"solver": {
-							"$id": "#root/params/1/solver", 
-							"title": "Solver", 
+							"$id": "#root/params/1/solver",
+							"title": "Solver",
 							"type": "string",
 							"default": "",
 							"examples": [
@@ -531,8 +554,8 @@
 							"pattern": "^.*$"
 						},
 						"tol": {
-							"$id": "#root/params/1/tol", 
-							"title": "Tol", 
+							"$id": "#root/params/1/tol",
+							"title": "Tol",
 							"type": "number",
 							"examples": [
 								0.0001
@@ -540,8 +563,8 @@
 							"default": 0.0
 						},
 						"validation_fraction": {
-							"$id": "#root/params/1/validation_fraction", 
-							"title": "Validation_fraction", 
+							"$id": "#root/params/1/validation_fraction",
+							"title": "Validation_fraction",
 							"type": "number",
 							"examples": [
 								0.1
@@ -549,8 +572,8 @@
 							"default": 0.0
 						},
 						"verbose": {
-							"$id": "#root/params/1/verbose", 
-							"title": "Verbose", 
+							"$id": "#root/params/1/verbose",
+							"title": "Verbose",
 							"type": "boolean",
 							"examples": [
 								false
@@ -558,8 +581,8 @@
 							"default": true
 						},
 						"warm_start": {
-							"$id": "#root/params/1/warm_start", 
-							"title": "Warm_start", 
+							"$id": "#root/params/1/warm_start",
+							"title": "Warm_start",
 							"type": "boolean",
 							"examples": [
 								false
@@ -570,16 +593,16 @@
 				}
 ,
 				"2": {
-					"$id": "#root/params/2", 
-					"title": "2", 
+					"$id": "#root/params/2",
+					"title": "2",
 					"type": "object",
 					"required": [
-						
+
 					],
 					"properties": {
 						"activation": {
-							"$id": "#root/params/2/activation", 
-							"title": "Activation", 
+							"$id": "#root/params/2/activation",
+							"title": "Activation",
 							"type": "string",
 							"default": "",
 							"examples": [
@@ -588,8 +611,8 @@
 							"pattern": "^.*$"
 						},
 						"alpha": {
-							"$id": "#root/params/2/alpha", 
-							"title": "Alpha", 
+							"$id": "#root/params/2/alpha",
+							"title": "Alpha",
 							"type": "number",
 							"examples": [
 								0.0001
@@ -597,8 +620,8 @@
 							"default": 0.0
 						},
 						"batch_size": {
-							"$id": "#root/params/2/batch_size", 
-							"title": "Batch_size", 
+							"$id": "#root/params/2/batch_size",
+							"title": "Batch_size",
 							"type": "integer",
 							"examples": [
 								50
@@ -606,8 +629,8 @@
 							"default": 0
 						},
 						"beta_1": {
-							"$id": "#root/params/2/beta_1", 
-							"title": "Beta_1", 
+							"$id": "#root/params/2/beta_1",
+							"title": "Beta_1",
 							"type": "number",
 							"examples": [
 								0.9
@@ -615,8 +638,8 @@
 							"default": 0.0
 						},
 						"beta_2": {
-							"$id": "#root/params/2/beta_2", 
-							"title": "Beta_2", 
+							"$id": "#root/params/2/beta_2",
+							"title": "Beta_2",
 							"type": "number",
 							"examples": [
 								0.999
@@ -624,8 +647,8 @@
 							"default": 0.0
 						},
 						"early_stopping": {
-							"$id": "#root/params/2/early_stopping", 
-							"title": "Early_stopping", 
+							"$id": "#root/params/2/early_stopping",
+							"title": "Early_stopping",
 							"type": "boolean",
 							"examples": [
 								false
@@ -633,26 +656,37 @@
 							"default": true
 						},
 						"epsilon": {
-							"$id": "#root/params/2/epsilon", 
-							"title": "Epsilon", 
+							"$id": "#root/params/2/epsilon",
+							"title": "Epsilon",
 							"type": "number",
 							"examples": [
 								1e-8
 							],
 							"default": 0.0
 						},
-						"hidden_layer_sizes": {
-							"$id": "#root/params/2/hidden_layer_sizes", 
-							"title": "Hidden_layer_sizes", 
-							"type": "integer",
-							"examples": [
-								100
-							],
-							"default": 0
+						"hidden_layer_sizes": {"$id": "#root/hidden_layer_sizes",
+							"title": "Hidden_layer_sizes",
+							"type": "array",
+							"default": [],
+							"items":{
+								"$id": "#root/hidden_layer_sizes/items",
+								"title": "Items",
+								"type": ["array", "integer"],
+								"default": [],
+								"items":{
+									"$id": "#root/hidden_layer_sizes/items/items",
+									"title": "Items",
+									"type": "integer",
+									"examples": [
+										10
+									],
+									"default": 0
+								}
+							}
 						},
 						"learning_rate": {
-							"$id": "#root/params/2/learning_rate", 
-							"title": "Learning_rate", 
+							"$id": "#root/params/2/learning_rate",
+							"title": "Learning_rate",
 							"type": "string",
 							"default": "",
 							"examples": [
@@ -661,8 +695,8 @@
 							"pattern": "^.*$"
 						},
 						"learning_rate_init": {
-							"$id": "#root/params/2/learning_rate_init", 
-							"title": "Learning_rate_init", 
+							"$id": "#root/params/2/learning_rate_init",
+							"title": "Learning_rate_init",
 							"type": "number",
 							"examples": [
 								0.001
@@ -670,8 +704,8 @@
 							"default": 0.0
 						},
 						"max_fun": {
-							"$id": "#root/params/2/max_fun", 
-							"title": "Max_fun", 
+							"$id": "#root/params/2/max_fun",
+							"title": "Max_fun",
 							"type": "integer",
 							"examples": [
 								15000
@@ -679,8 +713,8 @@
 							"default": 0
 						},
 						"max_iter": {
-							"$id": "#root/params/2/max_iter", 
-							"title": "Max_iter", 
+							"$id": "#root/params/2/max_iter",
+							"title": "Max_iter",
 							"type": "integer",
 							"examples": [
 								50
@@ -688,8 +722,8 @@
 							"default": 0
 						},
 						"momentum": {
-							"$id": "#root/params/2/momentum", 
-							"title": "Momentum", 
+							"$id": "#root/params/2/momentum",
+							"title": "Momentum",
 							"type": "number",
 							"examples": [
 								0.9
@@ -697,8 +731,8 @@
 							"default": 0.0
 						},
 						"n_iter_no_change": {
-							"$id": "#root/params/2/n_iter_no_change", 
-							"title": "N_iter_no_change", 
+							"$id": "#root/params/2/n_iter_no_change",
+							"title": "N_iter_no_change",
 							"type": "integer",
 							"examples": [
 								10
@@ -706,8 +740,8 @@
 							"default": 0
 						},
 						"nesterovs_momentum": {
-							"$id": "#root/params/2/nesterovs_momentum", 
-							"title": "Nesterovs_momentum", 
+							"$id": "#root/params/2/nesterovs_momentum",
+							"title": "Nesterovs_momentum",
 							"type": "boolean",
 							"examples": [
 								true
@@ -715,8 +749,8 @@
 							"default": true
 						},
 						"power_t": {
-							"$id": "#root/params/2/power_t", 
-							"title": "Power_t", 
+							"$id": "#root/params/2/power_t",
+							"title": "Power_t",
 							"type": "number",
 							"examples": [
 								0.5
@@ -724,8 +758,8 @@
 							"default": 0.0
 						},
 						"random_state": {
-							"$id": "#root/params/2/random_state", 
-							"title": "Random_state", 
+							"$id": "#root/params/2/random_state",
+							"title": "Random_state",
 							"type": ["integer", "null"],
 							"examples": [
 								0
@@ -733,8 +767,8 @@
 							"default": 0
 						},
 						"shuffle": {
-							"$id": "#root/params/2/shuffle", 
-							"title": "Shuffle", 
+							"$id": "#root/params/2/shuffle",
+							"title": "Shuffle",
 							"type": "boolean",
 							"examples": [
 								true
@@ -742,8 +776,8 @@
 							"default": true
 						},
 						"solver": {
-							"$id": "#root/params/2/solver", 
-							"title": "Solver", 
+							"$id": "#root/params/2/solver",
+							"title": "Solver",
 							"type": "string",
 							"default": "",
 							"examples": [
@@ -752,8 +786,8 @@
 							"pattern": "^.*$"
 						},
 						"tol": {
-							"$id": "#root/params/2/tol", 
-							"title": "Tol", 
+							"$id": "#root/params/2/tol",
+							"title": "Tol",
 							"type": "number",
 							"examples": [
 								0.0001
@@ -761,8 +795,8 @@
 							"default": 0.0
 						},
 						"validation_fraction": {
-							"$id": "#root/params/2/validation_fraction", 
-							"title": "Validation_fraction", 
+							"$id": "#root/params/2/validation_fraction",
+							"title": "Validation_fraction",
 							"type": "number",
 							"examples": [
 								0.1
@@ -770,8 +804,8 @@
 							"default": 0.0
 						},
 						"verbose": {
-							"$id": "#root/params/2/verbose", 
-							"title": "Verbose", 
+							"$id": "#root/params/2/verbose",
+							"title": "Verbose",
 							"type": "boolean",
 							"examples": [
 								false
@@ -779,8 +813,8 @@
 							"default": true
 						},
 						"warm_start": {
-							"$id": "#root/params/2/warm_start", 
-							"title": "Warm_start", 
+							"$id": "#root/params/2/warm_start",
+							"title": "Warm_start",
 							"type": "boolean",
 							"examples": [
 								false
@@ -791,16 +825,16 @@
 				}
 ,
 				"3": {
-					"$id": "#root/params/3", 
-					"title": "3", 
+					"$id": "#root/params/3",
+					"title": "3",
 					"type": "object",
 					"required": [
-						
+
 					],
 					"properties": {
 						"activation": {
-							"$id": "#root/params/3/activation", 
-							"title": "Activation", 
+							"$id": "#root/params/3/activation",
+							"title": "Activation",
 							"type": "string",
 							"default": "",
 							"examples": [
@@ -809,8 +843,8 @@
 							"pattern": "^.*$"
 						},
 						"alpha": {
-							"$id": "#root/params/3/alpha", 
-							"title": "Alpha", 
+							"$id": "#root/params/3/alpha",
+							"title": "Alpha",
 							"type": "number",
 							"examples": [
 								0.0001
@@ -818,8 +852,8 @@
 							"default": 0.0
 						},
 						"batch_size": {
-							"$id": "#root/params/3/batch_size", 
-							"title": "Batch_size", 
+							"$id": "#root/params/3/batch_size",
+							"title": "Batch_size",
 							"type": "integer",
 							"examples": [
 								10
@@ -827,8 +861,8 @@
 							"default": 0
 						},
 						"beta_1": {
-							"$id": "#root/params/3/beta_1", 
-							"title": "Beta_1", 
+							"$id": "#root/params/3/beta_1",
+							"title": "Beta_1",
 							"type": "number",
 							"examples": [
 								0.9
@@ -836,8 +870,8 @@
 							"default": 0.0
 						},
 						"beta_2": {
-							"$id": "#root/params/3/beta_2", 
-							"title": "Beta_2", 
+							"$id": "#root/params/3/beta_2",
+							"title": "Beta_2",
 							"type": "number",
 							"examples": [
 								0.999
@@ -845,8 +879,8 @@
 							"default": 0.0
 						},
 						"early_stopping": {
-							"$id": "#root/params/3/early_stopping", 
-							"title": "Early_stopping", 
+							"$id": "#root/params/3/early_stopping",
+							"title": "Early_stopping",
 							"type": "boolean",
 							"examples": [
 								false
@@ -854,26 +888,37 @@
 							"default": true
 						},
 						"epsilon": {
-							"$id": "#root/params/3/epsilon", 
-							"title": "Epsilon", 
+							"$id": "#root/params/3/epsilon",
+							"title": "Epsilon",
 							"type": "number",
 							"examples": [
 								1e-8
 							],
 							"default": 0.0
 						},
-						"hidden_layer_sizes": {
-							"$id": "#root/params/3/hidden_layer_sizes", 
-							"title": "Hidden_layer_sizes", 
-							"type": "integer",
-							"examples": [
-								20
-							],
-							"default": 0
+						"hidden_layer_sizes": {"$id": "#root/hidden_layer_sizes",
+							"title": "Hidden_layer_sizes",
+							"type": "array",
+							"default": [],
+							"items":{
+								"$id": "#root/hidden_layer_sizes/items",
+								"title": "Items",
+								"type": ["array", "integer"],
+								"default": [],
+								"items":{
+									"$id": "#root/hidden_layer_sizes/items/items",
+									"title": "Items",
+									"type": "integer",
+									"examples": [
+										10
+									],
+									"default": 0
+								}
+							}
 						},
 						"learning_rate": {
-							"$id": "#root/params/3/learning_rate", 
-							"title": "Learning_rate", 
+							"$id": "#root/params/3/learning_rate",
+							"title": "Learning_rate",
 							"type": "string",
 							"default": "",
 							"examples": [
@@ -882,8 +927,8 @@
 							"pattern": "^.*$"
 						},
 						"learning_rate_init": {
-							"$id": "#root/params/3/learning_rate_init", 
-							"title": "Learning_rate_init", 
+							"$id": "#root/params/3/learning_rate_init",
+							"title": "Learning_rate_init",
 							"type": "number",
 							"examples": [
 								0.001
@@ -891,8 +936,8 @@
 							"default": 0.0
 						},
 						"max_fun": {
-							"$id": "#root/params/3/max_fun", 
-							"title": "Max_fun", 
+							"$id": "#root/params/3/max_fun",
+							"title": "Max_fun",
 							"type": "integer",
 							"examples": [
 								15000
@@ -900,8 +945,8 @@
 							"default": 0
 						},
 						"max_iter": {
-							"$id": "#root/params/3/max_iter", 
-							"title": "Max_iter", 
+							"$id": "#root/params/3/max_iter",
+							"title": "Max_iter",
 							"type": "integer",
 							"examples": [
 								50
@@ -909,8 +954,8 @@
 							"default": 0
 						},
 						"momentum": {
-							"$id": "#root/params/3/momentum", 
-							"title": "Momentum", 
+							"$id": "#root/params/3/momentum",
+							"title": "Momentum",
 							"type": "number",
 							"examples": [
 								0.9
@@ -918,8 +963,8 @@
 							"default": 0.0
 						},
 						"n_iter_no_change": {
-							"$id": "#root/params/3/n_iter_no_change", 
-							"title": "N_iter_no_change", 
+							"$id": "#root/params/3/n_iter_no_change",
+							"title": "N_iter_no_change",
 							"type": "integer",
 							"examples": [
 								10
@@ -927,8 +972,8 @@
 							"default": 0
 						},
 						"nesterovs_momentum": {
-							"$id": "#root/params/3/nesterovs_momentum", 
-							"title": "Nesterovs_momentum", 
+							"$id": "#root/params/3/nesterovs_momentum",
+							"title": "Nesterovs_momentum",
 							"type": "boolean",
 							"examples": [
 								true
@@ -936,8 +981,8 @@
 							"default": true
 						},
 						"power_t": {
-							"$id": "#root/params/3/power_t", 
-							"title": "Power_t", 
+							"$id": "#root/params/3/power_t",
+							"title": "Power_t",
 							"type": "number",
 							"examples": [
 								0.5
@@ -945,8 +990,8 @@
 							"default": 0.0
 						},
 						"random_state": {
-							"$id": "#root/params/3/random_state", 
-							"title": "Random_state", 
+							"$id": "#root/params/3/random_state",
+							"title": "Random_state",
 							"type": ["integer", "null"],
 							"examples": [
 								0
@@ -954,8 +999,8 @@
 							"default": 0
 						},
 						"shuffle": {
-							"$id": "#root/params/3/shuffle", 
-							"title": "Shuffle", 
+							"$id": "#root/params/3/shuffle",
+							"title": "Shuffle",
 							"type": "boolean",
 							"examples": [
 								true
@@ -963,8 +1008,8 @@
 							"default": true
 						},
 						"solver": {
-							"$id": "#root/params/3/solver", 
-							"title": "Solver", 
+							"$id": "#root/params/3/solver",
+							"title": "Solver",
 							"type": "string",
 							"default": "",
 							"examples": [
@@ -973,8 +1018,8 @@
 							"pattern": "^.*$"
 						},
 						"tol": {
-							"$id": "#root/params/3/tol", 
-							"title": "Tol", 
+							"$id": "#root/params/3/tol",
+							"title": "Tol",
 							"type": "number",
 							"examples": [
 								0.0001
@@ -982,8 +1027,8 @@
 							"default": 0.0
 						},
 						"validation_fraction": {
-							"$id": "#root/params/3/validation_fraction", 
-							"title": "Validation_fraction", 
+							"$id": "#root/params/3/validation_fraction",
+							"title": "Validation_fraction",
 							"type": "number",
 							"examples": [
 								0.1
@@ -991,8 +1036,8 @@
 							"default": 0.0
 						},
 						"verbose": {
-							"$id": "#root/params/3/verbose", 
-							"title": "Verbose", 
+							"$id": "#root/params/3/verbose",
+							"title": "Verbose",
 							"type": "boolean",
 							"examples": [
 								false
@@ -1000,8 +1045,8 @@
 							"default": true
 						},
 						"warm_start": {
-							"$id": "#root/params/3/warm_start", 
-							"title": "Warm_start", 
+							"$id": "#root/params/3/warm_start",
+							"title": "Warm_start",
 							"type": "boolean",
 							"examples": [
 								false
@@ -1012,16 +1057,16 @@
 				}
 ,
 				"4": {
-					"$id": "#root/params/4", 
-					"title": "4", 
+					"$id": "#root/params/4",
+					"title": "4",
 					"type": "object",
 					"required": [
-						
+
 					],
 					"properties": {
 						"activation": {
-							"$id": "#root/params/4/activation", 
-							"title": "Activation", 
+							"$id": "#root/params/4/activation",
+							"title": "Activation",
 							"type": "string",
 							"default": "",
 							"examples": [
@@ -1030,8 +1075,8 @@
 							"pattern": "^.*$"
 						},
 						"alpha": {
-							"$id": "#root/params/4/alpha", 
-							"title": "Alpha", 
+							"$id": "#root/params/4/alpha",
+							"title": "Alpha",
 							"type": "number",
 							"examples": [
 								0.0001
@@ -1039,8 +1084,8 @@
 							"default": 0.0
 						},
 						"batch_size": {
-							"$id": "#root/params/4/batch_size", 
-							"title": "Batch_size", 
+							"$id": "#root/params/4/batch_size",
+							"title": "Batch_size",
 							"type": "integer",
 							"examples": [
 								10
@@ -1048,8 +1093,8 @@
 							"default": 0
 						},
 						"beta_1": {
-							"$id": "#root/params/4/beta_1", 
-							"title": "Beta_1", 
+							"$id": "#root/params/4/beta_1",
+							"title": "Beta_1",
 							"type": "number",
 							"examples": [
 								0.9
@@ -1057,8 +1102,8 @@
 							"default": 0.0
 						},
 						"beta_2": {
-							"$id": "#root/params/4/beta_2", 
-							"title": "Beta_2", 
+							"$id": "#root/params/4/beta_2",
+							"title": "Beta_2",
 							"type": "number",
 							"examples": [
 								0.999
@@ -1066,8 +1111,8 @@
 							"default": 0.0
 						},
 						"early_stopping": {
-							"$id": "#root/params/4/early_stopping", 
-							"title": "Early_stopping", 
+							"$id": "#root/params/4/early_stopping",
+							"title": "Early_stopping",
 							"type": "boolean",
 							"examples": [
 								false
@@ -1075,22 +1120,33 @@
 							"default": true
 						},
 						"epsilon": {
-							"$id": "#root/params/4/epsilon", 
-							"title": "Epsilon", 
+							"$id": "#root/params/4/epsilon",
+							"title": "Epsilon",
 							"type": "number",
 							"examples": [
 								1e-8
 							],
 							"default": 0.0
 						},
-						"hidden_layer_sizes": {
-							"$id": "#root/params/4/hidden_layer_sizes", 
-							"title": "Hidden_layer_sizes", 
-							"type": "integer",
-							"examples": [
-								100
-							],
-							"default": 0
+						"hidden_layer_sizes": {"$id": "#root/hidden_layer_sizes",
+							"title": "Hidden_layer_sizes",
+							"type": "array",
+							"default": [],
+							"items":{
+								"$id": "#root/hidden_layer_sizes/items",
+								"title": "Items",
+								"type": ["array", "integer"],
+								"default": [],
+								"items":{
+									"$id": "#root/hidden_layer_sizes/items/items",
+									"title": "Items",
+									"type": "integer",
+									"examples": [
+										10
+									],
+									"default": 0
+								}
+							}
 						},
 						"learning_rate": {
 							"$id": "#root/params/4/learning_rate", 

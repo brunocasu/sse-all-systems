@@ -137,13 +137,13 @@ class Preparation_system():
         #Convert the DataFrame to a dictionary (pairs of key, value)
         prepared_session_ = pd.DataFrame(prepared_session).to_dict()
         df = pd.DataFrame(prepared_session_)
-        print(type(df))
+        print(df.shape)
         print(df.head(10))
         if(self.SYSTEM_STATE == "Development"):
             #r = requests.post('http://127.0.0.1:5000/Restful_api/segregation', json=prepared_session_)
             requests.post(SEGREGATION_URL, json=df.to_json()) ## added
         else:
-            r = requests.post(EXECUTION_URL, json=prepared_session_)
+            r = requests.post(EXECUTION_URL, json=df.to_json()) ## added
 
 
     def reconfigure_preparation_system(self):

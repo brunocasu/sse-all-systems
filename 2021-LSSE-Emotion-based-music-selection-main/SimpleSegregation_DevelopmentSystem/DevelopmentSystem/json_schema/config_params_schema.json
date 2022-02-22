@@ -30,13 +30,19 @@
 			"type": "array",
 			"default": [],
 			"items":{
-				"$id": "#root/hidden_layer_sizes/items", 
-				"title": "Items", 
-				"type": "integer",
-				"examples": [
-					20
-				],
-				"default": 0
+				"$id": "#root/hidden_layer_sizes/items",
+				"title": "Items",
+				"type": ["array", "integer"],
+				"default": [],
+				"items":{
+					"$id": "#root/hidden_layer_sizes/items/items",
+					"title": "Items",
+					"type": "integer",
+					"examples": [
+						10
+					],
+					"default": 0
+				}
 			}
 		},
 		"batch_size": {

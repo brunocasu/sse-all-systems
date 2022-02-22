@@ -1,0 +1,19 @@
+MONITORING REPORT
+Number of Sessions Received: 10
+Monitoring Error: 90.0%
+Maximum Error Threshold: 50.0%
+Classifier Performance: REJECTED
+
+Sessions
+Received Labels:
+Human    Classifier
+3        0
+0        1
+3        0
+0        0
+3        1
+1        0
+3        0
+2        1
+2        0
+2        3

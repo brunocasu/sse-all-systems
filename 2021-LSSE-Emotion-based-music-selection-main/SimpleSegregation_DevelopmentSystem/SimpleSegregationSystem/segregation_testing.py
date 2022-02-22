@@ -11,7 +11,7 @@ from SimpleSegregationSystem.dataframe_encoding import DataframeEncoding
 from SimpleSegregationSystem.utility import write_db, read_db, delete_db
 from jsonschema_validation import JsonSchemaValidation
 
-#BASE_DIR = "SimpleSegregation_DevelopmentSystem/SimpleSegregationSystem"
+# BASE_DIR = "SimpleSegregation_DevelopmentSystem/SimpleSegregationSystem" #### ADDED ####
 BASE_DIR = "SimpleSegregationSystem"
 CONF_PATH = BASE_DIR + "/conf_files/configuration.json"
 EXPECTED_LEN = 9
@@ -74,11 +74,11 @@ class SegregateData:
         # Take labels string
         labels = df.iloc[:, 2]
 
-        # Take the inputs (calendar, music, emotion)
+        # Take the inputs to be encoded (calendar, music, emotion)
         data_to_encode = df.iloc[:, 0:3]
 
         # Encode the dataframe
-        dataframe_encoded = DataframeEncoding(columns=['1', '2', '3']).fit_transform(data_to_encode)  # Encode the input
+        dataframe_encoded = DataframeEncoding().encode(data_to_encode)
 
         # Take the encoded labels (emotions)
         labels = dataframe_encoded.iloc[:, -1]
@@ -87,11 +87,12 @@ class SegregateData:
         dataframe_encoded = dataframe_encoded.iloc[:, :-1]
 
         # Take the eeg features
-        data2 = df.iloc[:, 3:8]
+        data2 = df.iloc[:, 4:8]
 
         # Merge everything, labels at the end.
         data = dataframe_encoded.join(data2)
         data = data.join(labels)
+        print("SEGREGATION DATA ENCODED", data.head(10)) #### ADDED ####
 
         # Split the data into training, test, and validation set
         test_size = json_object["test_split"]

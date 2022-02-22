@@ -2,26 +2,13 @@ from sklearn.preprocessing import LabelEncoder
 
 
 class DataframeEncoding:
-    def __init__(self, columns=None):
-        self.columns = columns  # array of column names to encode
 
-    def fit(self, X, y=None):
-        return self
+    def encode(self, dataframe):
+        encoder = {
+            "1": {"sport": 0, "meditation": 1},
+            "2": {"pop-music": 0, "ambient-music": 1},
+            "3": {"focused": 0, "relaxed": 1, "excited": 2, "stressed": 3}
+        }
 
-    def transform(self, X):
-        """
-        Transforms columns of X specified in self.columns using
-        LabelEncoder(). If no columns specified, transforms all
-        columns in X.
-        """
-        output = X.copy()
-        if self.columns is not None:
-            for col in self.columns:
-                output[col] = LabelEncoder().fit_transform(output[col])
-        else:
-            for colname, col in output.iteritems():
-                output[colname] = LabelEncoder().fit_transform(col)
-        return output
-
-    def fit_transform(self, X, y=None):
-        return self.fit(X, y).transform(X)
+        dataframe = dataframe.replace(encoder)
+        return dataframe

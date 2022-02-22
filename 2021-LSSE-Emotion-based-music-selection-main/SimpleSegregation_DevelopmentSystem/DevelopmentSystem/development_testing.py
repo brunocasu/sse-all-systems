@@ -12,11 +12,8 @@ from jsonschema_validation \
 from DevelopmentSystem.utility \
     import read_db, read_json, write_db, write_json, delete_db, empty_df
 
-BASE_DIR = "DevelopmentSystem"
+BASE_DIR = "DevelopmentSystem" 
 DEPLOYED_NETWORK = "final_network.sav"
-#BEST_NETWORKS_PATH = BASE_DIR + "/json_report_files/validation_report.json"
-#BEST_NETWORKS_TABLE = BASE_DIR + "/json_report_files/best_networks_params.txt"
-#TEST_REPORT_PATH = BASE_DIR + "/json_report_files/test_report.json"
 BEST_NETWORKS_PATH = BASE_DIR + "/validation_report.json"
 BEST_NETWORKS_TABLE = BASE_DIR + "/best_networks_params.txt"
 TEST_REPORT_PATH = BASE_DIR + "/test_report.json"
@@ -216,7 +213,7 @@ class DevelopmentTesting:
 
             else:
                 print("[DEVELOPMENT SYSTEM]: Network non accepted. Reconfiguration required.\n")
-            # classifier.delete_report_files()
+
 
         elif json_object["retraining"] and not json_object["training"]:
             print("[DEVELOPMENT SYSTEM]: To retrain the network, set also 'training':true")
@@ -241,6 +238,17 @@ class DevelopmentTesting:
         app_json_object = read_json(BASE_DIR + "/conf_files/application_settings.json")
         if not validate.app_settings_validation(app_json_object):
             sys.exit()
+
+        if app_json_object["auto_testing_max_iter"] is None:
+            print("[DEVELOPMENT SYSTEM]: Error! Set initial max_iter in application settings")
+        else:
+            classifier.set_epochs(app_json_object["auto_testing_max_iter"])
+        if app_json_object["curve_flat"] is None:
+            print("[DEVELOPMENT SYSTEM]: Error! Set curve flat threshold")
+        if app_json_object["validation_threshold"] is None:
+            print("[DEVELOPMENT SYSTEM]: Error! Set Validation Error threshold")
+        if app_json_object["test_threshold"] is None:
+            print("[DEVELOPMENT SYSTEM]: Error! Set Test Error threshold")
 
         # GET DATA FROM SEGREGATION SYSTEM THROUGH RESTFUL, SET CLASSIFIER DATA AND FILL THE DB
         get_data = requests.get(str(app_json_object["rest_addr"]) + '/Restful_api/development')
@@ -270,20 +278,26 @@ class DevelopmentTesting:
 
         restart_from_training = True
         training = True
+        max_rep = 0 #### ADDED ####
+        MAX_LOOP_VAL = 3 #### ADDED ####
+        MAX_LOOP_NEW_ERROR_TS = 0.9 #### ADDED ####
         while restart_from_training:
-
+            max_train_iter = 0
+            new_epochs = 400
             # THE CLASSIFIER IS TRAINED UNTIL THE CURVE IS NOT FLAT ENOUGH
-            while training:
-                classifier.training_classifier()
-                pass_training = random.uniform(0, 1)
-                #if pass_training < app_json_object["curve_flat"]:
-                if pass_training < 0.5:
-                    old_epochs = int(classifier.get_epochs())
-                    new_epochs = randint(old_epochs, 1000)
+            while training and max_train_iter < 5:
+                classifier.set_epochs(new_epochs)
+                err = classifier.training_classifier()
+                #pass_training = random.uniform(0, 1)
+                if err > 0.65:
+                    #old_epochs = int(classifier.get_epochs())
+                    #new_epochs = randint(old_epochs, 1000)
                     print("[DEVELOPMENT SYSTEM]: Training not passed. New number of epochs generated: " + str(
                         new_epochs) + ". Training is restarting")
                     # Set generations
-                    classifier.set_epochs(new_epochs)
+                    #classifier.set_epochs(new_epochs)
+                    max_train_iter += 1
+                    new_epochs += 300
                 else:
                     training = False
 
@@ -304,17 +318,23 @@ class DevelopmentTesting:
                     if classifier.check_presence(i):
                         # get the validation error
                         val_error = classifier.get_validation_error(i)
-                        #if float(val_error) < app_json_object["validation_threshold"]:
-                        if float(val_error) < 0.9: #### ADDED ####
+                        if float(val_error) < app_json_object["validation_threshold"]:
                             present.append(i)
+                        elif max_rep == MAX_LOOP_VAL: #### ADDEDD #### if limit is reached, increase the error threshold
+                            if float(val_error) < MAX_LOOP_NEW_ERROR_TS:
+                                present.append(i)
+
                 if len(present) == 0:
                     print("[DEVELOPMENT SYSTEM]: No network is enough accurate. Validation not passed. Restart "
                           "training phase")
+                    max_rep += 1
                     classifier.delete_for_retraining()
                     training = True
                 else:
                     print("[DEVELOPMENT SYSTEM]: Grid search algorithm executed.")
                     # I CAN EXIT FROM THE LOOP
+                    if (max_rep == MAX_LOOP_VAL):
+                        print("[DEVELOPMENT SYSTEM]: MAX Loop iteration Reached.")
                     restart_from_training = False
 
         # PRODUCE THE INDEX OF THE CHOSEN NETWORK
@@ -328,7 +348,7 @@ class DevelopmentTesting:
         # THE THE CHOSEN NETWORK
         print("[DEVELOPMENT SYSTEM]: Start network testing")
         test_error = classifier.testing_classifier()
-
+        print("[DEVELOPMENT SYSTEM]: Max Error threshold: " + str(app_json_object["test_threshold"]))  #### ADDED ####
         if test_error > app_json_object["test_threshold"]:
             print("[DEVELOPMENT SYSTEM]: Classifier didn't pass testing phase. Reconfiguration needed")
             classifier.delete_report_files()
@@ -337,5 +357,4 @@ class DevelopmentTesting:
             # CLASSIFIER PASSED THE TESTING PHASE, SO CAN BE DEPLOYED THROUGH A POST
             print("[DEVELOPMENT SYSTEM]: Classifier passed the testing phase")
             classifier.deploy_classifier()
-
             return True

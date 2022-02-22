@@ -14,14 +14,17 @@
     "network_server_addr": {
       "type": "string"
     },
+    "auto_testing_max_iter": {
+      "type": ["number", "null"]
+    },
     "curve_flat": {
-      "type": "number"
+      "type": ["number", "null"]
     },
     "validation_threshold": {
-      "type": "number"
+      "type": ["number", "null"]
     },
     "test_threshold": {
-      "type": "number"
+      "type": ["number", "null"]
     }
   },
   "required": [
@@ -29,6 +32,7 @@
     "manual_testing_started",
     "rest_addr",
     "network_server_addr",
+    "auto_testing_max_iter",
     "curve_flat",
     "validation_threshold",
     "test_threshold"

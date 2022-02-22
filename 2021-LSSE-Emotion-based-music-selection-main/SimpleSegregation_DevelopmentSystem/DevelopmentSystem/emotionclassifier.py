@@ -3,7 +3,7 @@ import math
 import os
 import sys
 import warnings
-
+from random import randint
 import joblib
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -108,14 +108,28 @@ class DevelopEmotionClassifier:
                     media = math.floor(sum(params_i) / len(params_i))
                     json_parameters[i] = media
 
+        # IF HIDDEN LAYERS ARE MANY, I TAKE FOR EACH ONE THE AVG OF THE INSERTED VALUES
+        hidden_layers_sizes = params["hidden_layer_sizes"]
+        sizes = []
+        n_layers = len(hidden_layers_sizes)
+        if n_layers > 0 and all(isinstance(n, list) for n in hidden_layers_sizes):
+            for k in range(0, n_layers):
+                size_k = []
+                for j in range(0, len(hidden_layers_sizes[k])):
+                    size_k.append(hidden_layers_sizes[k][j])
+                media_k = math.floor(sum(size_k) / len(hidden_layers_sizes[k]))
+                sizes.append(media_k)
+            json_parameters["hidden_layer_sizes"] = (sizes)
+
+
         # CREATE AND TRAIN THE CLASSIFIER
         self.classifier = MLPClassifier()
         self.classifier.set_params(**json_parameters)
-
         self.classifier.fit(self.training_set, ravel(self.training_set_labels))
+
         # compute training error
-        tr_labels = self.classifier.predict(self.training_set)
-        tr_error = accuracy_score(ravel(self.training_set_labels), tr_labels)
+        tr_labels = self.classifier.predict(self.test_set)  
+        tr_error = accuracy_score(ravel(self.test_set_labels), tr_labels)  
         print("[DEVELOPMENT SYSTEM]: Training Error: " + str(1 - tr_error))
 
         # store classifier for reuse
@@ -126,9 +140,9 @@ class DevelopEmotionClassifier:
         plt.title('Loss Curve')
         plt.xlabel('Number of generations')
         plt.ylabel('Loss')
-        #plt.savefig(self.base_dir + "graph/gradient_descend.png") #### ADDED ####
         plt.savefig("gradient_descend.png")
         plt.close()
+        return (1 - tr_error)
 
     def grid_search(self):
 
@@ -150,6 +164,7 @@ class DevelopEmotionClassifier:
         val_error = []
         tr_error = []
         classifier = []
+        more_layers = False
         # FOR EACH PARAMETER SET, BUILD THE NETWORK AND COMPUTE THE TRAINING AND VALIDATION ERROR
         for i in range(0, len(best_networks)):
             classifier.append(MLPClassifier(**best_networks[i]).fit(self.training_set, ravel(self.training_set_labels)))
@@ -157,6 +172,9 @@ class DevelopEmotionClassifier:
             val_error.append(float(1 - accuracy_score(ravel(self.validation_set_labels), val_labels)))
             tr_labels = classifier[i].predict(self.training_set)
             tr_error.append(float(1 - accuracy_score(ravel(self.training_set_labels), tr_labels)))
+            hidden_layers_sizes = best_networks[i]["hidden_layer_sizes"]
+            if type(hidden_layers_sizes) is list:
+                more_layers = True
 
         # ADD VALIDATION AND TRAINING ERROR TO THE DATAFRAME
         df.insert(0, "validation_error", val_error)
@@ -184,11 +202,10 @@ class DevelopEmotionClassifier:
         networks.reset_index(drop=True, inplace=True)
 
         #SAVE THE NETWORK PARAMETERS IN TABULAR FORMAT TO BE MORE READABLE
-        table(networks["params"], self.best_networks_table)
+        if not more_layers:
+            table(networks["params"], self.best_networks_table)
 
         # Store the 5 best networks params and errors into a json file
-        if not self.validate.validation_report_validation(networks.to_dict()):
-            exit(0)
         with open(self.best_networks_path, 'w') as file:
             json.dump(networks.to_dict(), file)
             file.close()
@@ -213,8 +230,6 @@ class DevelopEmotionClassifier:
     # CHECK IF IN THE BEST NETWORKS THERE'S ONE WITH INDEX 'ACCEPT'
     def check_presence(self, accept):
         networks = read_json(self.best_networks_path)
-        if not self.validate.validation_report_validation(networks):
-            sys.exit()
         return str(accept) in networks['params']
 
     # I TAKE THE VALIDATION ERROR OF THE NETWORKS AND GIVE BACK TO THE MAIN FUNCTION TO BE COMPARED WITH THE THRESHOLD.
@@ -222,8 +237,6 @@ class DevelopEmotionClassifier:
     # IT'S JUST FOR AUTOMATIC TESTING
     def get_validation_error(self, accept):
         networks = read_json(self.best_networks_path)
-        if not self.validate.validation_report_validation(networks):
-            sys.exit()
         return networks['validation_error'][str(accept)]
 
     # SELECT THE BEST NETWORK. I KEEP ONLY THAT NETWORK AND I REMOVE ALL THE OTHERS
@@ -242,9 +255,9 @@ class DevelopEmotionClassifier:
 
             # rename the file to easily find it later
             if os.path.exists(self.best_network + str(accept) + ".sav"):
-                print("removed renaming - best network")
+                print("removed renaming - best network") #### ADDED ####
                 self.classifier_filename_to_deploy = self.best_network + str(accept) + ".sav"
-                #os.rename(self.best_network + str(accept) + ".sav", self.best_network + ".sav")
+                
             else:
                 print("[DEVELOPMENT SYSTEM]: Error, file " + self.best_network + str(accept) + ".sav does not exists")
                 exit(0)
@@ -262,16 +275,14 @@ class DevelopEmotionClassifier:
             json_object = {'params': best_param, 'validation_error': float(val_error),
                            'training_error': float(tr_error)}
 
-            if not self.validate.test_report_validation(json_object):
-                sys.exit()
+            
             # WRITE THE TEST_REPORT (PARAMS + TRAINING/VALIDATION ERROR)
             write_json(self.test_report_path, json_object)
 
             # REMOVE THE FILE WITH PARAMS OF THE 5 BEST NETS
             if os.path.exists(self.best_networks_path):
                 os.remove(self.best_networks_path)
-            if os.path.exists(self.best_networks_table):
-                os.remove(self.best_networks_table)
+            
         else:
             print("[DEVELOPMENT SYSTEM]: No network with this index\n")
             sys.exit()
@@ -290,8 +301,7 @@ class DevelopEmotionClassifier:
 
             json_object = read_json(self.test_report_path)
             json_object["testing_error"] = float(test_error)
-            if not self.validate.test_report_validation(json_object):
-                exit(0)
+            
             write_json(self.test_report_path, json_object)
             plot_bar_chart(json_object.get("training_error"), json_object.get("validation_error"),
                            json_object.get("testing_error"), self.base_dir)
@@ -302,27 +312,21 @@ class DevelopEmotionClassifier:
     # DEPLOY THE NETWORK
     def deploy_classifier(self):
         # I CHECK THE EXISTENCE OF THE NET AND RENAME IT
-        if os.path.exists(self.best_network + ".sav"):
-            print("removed file renaming")
-            #os.rename(self.best_network + ".sav", self.deployed_path)
-        else:
-            print("[DEVELOPMENT SYSTEM]: Error during deployment\n")
-            # exit(0)
 
         app_json_object = read_json(self.base_dir + "/conf_files/application_settings.json")
         if not self.validate.app_settings_validation(app_json_object):
             sys.exit()
         # POST THE CLASSIFIER THROUGH THE HTTP
-        API_URL = str(app_json_object["network_server_addr"]) + "/deploy/"
-        #### ADDED ####
-        EXECUTION_DEPLOY_URL = 'http://127.0.0.1:5005/execution/deploy'
-        #files = {'file': open(self.deployed_path, 'rb')}
+        EXECUTION_DEPLOY_URL = str(app_json_object["network_server_addr"]) + "/execution/deploy"
+
+        #EXECUTION_DEPLOY_URL = 'http://127.0.0.1:5005/execution/deploy'
+
         files = {'file': open(self.classifier_filename_to_deploy, 'rb')}
         try:
             rr = requests.post(EXECUTION_DEPLOY_URL, files=files)
             if rr.status_code == 200:
                 print("[DEVELOPMENT SYSTEM]: Network successfully deployed.")
-                #os.remove(self.classifier_filename_to_deploy)
+                print(rr.text)
 
         except requests.exceptions.RequestException as e:
             print(e)

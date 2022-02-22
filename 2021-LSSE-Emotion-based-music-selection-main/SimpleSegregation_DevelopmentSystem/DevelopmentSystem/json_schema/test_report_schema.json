@@ -39,13 +39,25 @@
 					"default": 0
 				},
 				"hidden_layer_sizes": {
-					"$id": "#root/params/hidden_layer_sizes", 
-					"title": "Hidden_layer_sizes", 
-					"type": "integer",
-					"examples": [
-						100
-					],
-					"default": 0
+					"$id": "#root/hidden_layer_sizes",
+					"title": "Hidden_layer_sizes",
+					"type": "array",
+					"default": [],
+					"items":{
+						"$id": "#root/hidden_layer_sizes/items",
+						"title": "Items",
+						"type": ["array", "integer"],
+						"default": [],
+						"items":{
+							"$id": "#root/hidden_layer_sizes/items/items",
+							"title": "Items",
+							"type": "integer",
+							"examples": [
+								10
+							],
+							"default": 0
+						}
+					}
 				},
 				"max_iter": {
 					"$id": "#root/params/max_iter", 
